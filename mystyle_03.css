@@ -1,0 +1,18 @@
+h1 {
+    font-size: 30px;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin: 0;
+}
+
+h2 {
+    font-size: 20px;
+}
