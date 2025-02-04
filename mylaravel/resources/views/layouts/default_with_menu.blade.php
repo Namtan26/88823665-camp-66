@@ -27,6 +27,8 @@
         integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous" />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
+
+    <!-- <link rel="stylesheet" href="../../../dist/css/adminlte.css" /> -->
     <link rel="stylesheet" href="{{ url('public/css/adminlte.css') }}" />
     <!--end::Required Plugin(AdminLTE)-->
     @yield('styles')
