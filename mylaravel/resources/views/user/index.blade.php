@@ -9,8 +9,8 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead class="table-secondary">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th>Name</th>
@@ -25,7 +25,7 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <a href="{{ url('/users/' . $user->id) }}">
+                                    <a href="{{ url('/user/' . $user->id) }}">
                                         <button class="btn btn-warning">Edit</button>
                                     </a>
                                     <form action={{ url('/users') }} method="post" style="display: inline">
