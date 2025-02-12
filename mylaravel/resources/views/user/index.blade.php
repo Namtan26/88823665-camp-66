@@ -28,11 +28,12 @@
                                     <a href="{{ url('/user/' . $user->id) }}">
                                         <button class="btn btn-warning">Edit</button>
                                     </a>
-                                    <form action={{ url('/users') }} method="post" style="display: inline">
+                                    <form action="{{ url('/users') }}" method="post" class="delete-form d-inline">
                                         @csrf
                                         @method('delete')
                                         <input type="hidden" name="id" value="{{ $user->id }}">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="button" class="btn btn-danger delete-btn"
+                                            data-id="{{ $user->id }}">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -44,4 +45,31 @@
             <!-- /.card -->
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function(event) {
+                    let userId = this.getAttribute("data-id");
+                    let form = this.closest("form");
+
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: `User ID ${userId} will be deleted permanently!`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection
