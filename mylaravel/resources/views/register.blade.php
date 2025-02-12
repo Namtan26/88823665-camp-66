@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-body register-card-body">
                     <p class="register-box-msg">Register a new membership</p>
-                    <form action="{{ url('/register') }}" method="post">
+                    <form action="{{ url('/register') }}" method="post" onsubmit="return myfunction(event)">
                         @csrf
                         <div class="input-group mb-3">
                             <input type="text" name="name" id="name" class="form-control"
@@ -29,9 +29,11 @@
                             <div class="input-group-text"><span class="bi bi-envelope"></span></div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" name="password" id="password" class="form-control"
-                                placeholder="Password">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                             <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+                            <div class="invalid-feedback" id="invalid-pass">
+                                รหัสผ่านต้องมีตัวเลข, ตัวพิมพ์เล็ก, ตัวพิมพ์ใหญ่ และมีอย่างน้อย 8 ตัวอักษร
+                            </div>
                         </div>
                         <!--begin::Row-->
                         <div class="row">
@@ -79,25 +81,59 @@
         // alert("Hellow World!")
         // ALERT("Hellow World!") error
 
-        function myfunction() {
-            let name = document.getElementById('name')
-            name = $('#name')
-            let email = document.getElementById('email')
-            let pass = document.getElementById('password')
-            let mycheckbox = document.getElementById('mycheckbox')
-        document.getElementsByClass()
-        name.value = "My Name Value"
-            name.val("My Name Value")
-            console.log(name.val(), email.value, pass.value, mycheckbox.checked)
-            if (name.val() == "My Name Value") {
-                name.addClass('is-invalid');
-                $('#invaild-name').html("<b><u> ใส่ name เป็นคำนี้ไม่ได้</u></b>")
-                return false;
-            } else {
-                name.removeClass('is-invalid');
-            }
-            return true;
+        function myfunction(event) {
+        event.preventDefault(); // ป้องกันการ Submit ฟอร์ม ถ้าข้อมูลผิด
+
+        let name = document.getElementById('name');
+        let email = document.getElementById('email');
+        let password = document.getElementById('password');
+        let mycheckbox = document.getElementById('mycheckbox');
+        let passError = document.getElementById('invalid-pass');
+
+        let isValid = true; // ใช้เก็บสถานะการตรวจสอบ
+
+        // ตรวจสอบ name
+        if (name.value.trim() === "") {
+            name.classList.add('is-invalid');
+            document.getElementById('invalid-name').innerHTML = "กรุณากรอกชื่อของคุณ";
+            isValid = false;
+        } else {
+            name.classList.remove('is-invalid');
         }
+
+        // ตรวจสอบ email
+        if (!email.value.includes('@') || !email.value.includes('.')) {
+            email.classList.add('is-invalid');
+            alert("กรุณากรอกอีเมลที่ถูกต้อง");
+            isValid = false;
+        } else {
+            email.classList.remove('is-invalid');
+        }
+
+        // ตรวจสอบ password
+        let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        if (!passwordPattern.test(password.value)) {
+            password.classList.add('is-invalid');
+            passError.style.display = "block";
+            passError.innerHTML = "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร ประกอบด้วยตัวพิมพ์เล็ก, ตัวพิมพ์ใหญ่ และตัวเลข";
+            isValid = false;
+        } else {
+            password.classList.remove('is-invalid');
+            passError.style.display = "none";
+        }
+
+        // ตรวจสอบ checkbox
+        if (!mycheckbox.checked) {
+            alert("กรุณายอมรับเงื่อนไขก่อนสมัครสมาชิก");
+            isValid = false;
+        }
+
+        if (isValid) {
+            document.querySelector("form").submit();
+        }
+
+        return isValid;
+    }
         myfunction()
     </script>
 @endsection
