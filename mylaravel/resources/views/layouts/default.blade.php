@@ -42,38 +42,23 @@
     />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-
-    <!-- <link rel="stylesheet" href="../../../dist/css/adminlte.css" /> -->
-    <link rel="stylesheet" href="{{ url('public/css/adminlte.css') }}" />
+    <link rel="stylesheet" href="{{ url('public/css/adminlte.css') }}" /> {{-- แก้ path ตรงนี้ --}}
     <!--end::Required Plugin(AdminLTE)-->
     @yield('styles')
   </head>
   <!--end::Head-->
   <!--begin::Body-->
   <body class="bg-body-secondary">
-    <div class="layout-fixed sidebar-expand-lg">
-        <div class="app-wrapper">
-
-            @include('components.header')
-            @include('components.menu')
-            <main class="app-main">
-                @include('components.top_nav')
-                <!--begin::App Content-->
-                <div class="app-content">
-                    @yield('content')
-                </div>
-                <!--end::App Content-->
-            </main>
-            @include('components.footer')
-        </div>
-    </div>
+    @yield('content')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- /.login-box -->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
       integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -87,7 +72,7 @@
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="{{ url('public/js/adminlte.js') }}"></script>
+    <script src="{{ url('public/js/adminlte.js') }}"></script> {{-- แก้ path ตรงนี้ --}}
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';

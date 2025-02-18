@@ -6,48 +6,96 @@ use App\Http\Controllers\MyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckLogin;
 
-Route::get('/login',
-[LoginController::class, 'index']);
+Route::middleware([Checklogin::class])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/user/{id}', [UserController::class, 'edit']);
+    Route::put('/user', [UserController::class, 'edit_action']);
+    Route::delete('/user', [UserController::class, 'delete']);
 
-Route::get('/register',
-[RegisterController::class, 'index']);
+    Route::get('/product', [ProductController::class, 'index']);
+    Route::post('/product', [ProductController::class, 'add_product']);
 
-Route::get('/home',
-[HomeController::class, 'index']);
-
-Route::get('/',
-[HomeController::class, 'index']);
-
-Route::get('/404', function(){
-    abort(404);
 });
 
-Route::get('/500', function(){
+Route::get(
+    '/',
+    [HomeController::class, 'index'])->middleware([Checklogin::class]);
+
+Route::get(
+    '/login',
+    [LoginController::class, 'index']);
+Route::post(
+    '/login',
+    [LoginController::class, 'login']);
+Route::get(
+    '/logout',
+    function () {
+        session()->forget('user');
+        session()->flush();
+        return redirect('/login');
+    }
+);
+
+Route::get(
+    '/register',
+    [RegisterController::class, 'index']
+);
+
+Route::get(
+    '/home',
+    [HomeController::class, 'index']
+);
+Route::get(
+    '/',
+    [HomeController::class, 'index']
+);
+
+Route::get('/404', function () {
+    abort(404);
+});
+Route::get('/500', function () {
     abort(500);
 });
 
-Route::post('/register',
-[RegisterController::class, 'create']);
+Route::post(
+    '/register',
+    [RegisterController::class, 'create']
+);
 
-Route::get('/users',
-[UserController::class, 'index']);
+Route::get(
+    '/users',
+    [UserController::class, 'index']
+);
 
-Route::get('/user/{id}',
-[UserController::class, 'edit']);
+Route::get(
+    '/user/{id}',
+    [UserController::class, 'edit']
+);
+Route::put(
+    '/users',
+    [UserController::class, 'edit_action']
+);
 
-Route::put('/users',
-[UserController::class, 'edit_action']);
+Route::delete(
+    '/users',
+    [UserController::class, 'delete']
+);
 
-Route::delete('/users',
-[UserController::class, 'delete']);
+Route::get(
+    '/mycontroller/{id?}',
+    [MyController::class, 'myfunction']
+);
 
-Route::get('/mycontroller/{id?}',
-[MyController::class,'myfunction']);
+Route::post(
+    '/mycontroller/{id?}',
+    [MyController::class, 'myfunction']
+);
 
-Route::post('/mycontroller/{id?}',
-[MyController::class,'myfunction']);
+
 
 
 

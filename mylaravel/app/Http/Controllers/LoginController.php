@@ -3,10 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class LoginController extends Controller
 {
     function index() {
         return view('login');
+    }
+
+    function login(Request $req) {
+        // print_r($req->input());
+        $user = User::where('email',$req->email)->first();
+        // dd($user);
+        // print_r($user);
+        // dd($user->password);
+        // dd($req->password);
+        if($user != null && Hash::check($req->password, $user->password)) {
+            // dd($user);
+            $req->session()->put('user',$user);
+            return redirect('/users');
+        }else{
+            $req->session()->flush('error', 'กรุณาตรวจสอบข้อมูลอีกครั้ง');
+            return redirect('/login');
+        }
     }
 }

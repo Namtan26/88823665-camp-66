@@ -45,6 +45,7 @@
 
     <!-- <link rel="stylesheet" href="../../../dist/css/adminlte.css" /> -->
     <link rel="stylesheet" href="{{ url('public/css/adminlte.css') }}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--end::Required Plugin(AdminLTE)-->
     @yield('styles')
   </head>
@@ -53,7 +54,6 @@
   <body class="bg-body-secondary">
     <div class="layout-fixed sidebar-expand-lg">
         <div class="app-wrapper">
-
             @include('components.header')
             @include('components.menu')
             <main class="app-main">
@@ -73,7 +73,6 @@
       integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
